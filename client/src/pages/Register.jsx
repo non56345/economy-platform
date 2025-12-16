@@ -24,11 +24,16 @@ export default function Register() {
   const navigate = useNavigate();
 
   const submit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+
+  try {
     const res = await api.post("/auth/register", form);
     localStorage.setItem("token", res.data.token);
     navigate("/student");
-  };
+  } catch (err) {
+    alert(err.response?.data?.message || "حصل خطأ");
+  }
+};
 
   return (
     <PageLayout center>
